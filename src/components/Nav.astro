@@ -1,0 +1,55 @@
+---
+import Button from './Button.astro';
+
+const { currentPath = '/' } = Astro.props;
+const normalizedPath =
+  currentPath !== '/' && currentPath.endsWith('/') ? currentPath.slice(0, -1) : currentPath;
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Creative', href: '/creative' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Contact', href: '/contact' }
+];
+---
+<header class="sticky top-0 z-50 border-b border-border bg-bg backdrop-blur">
+  <div class="site-container flex flex-wrap items-center justify-between gap-4 py-4">
+    <a href="/" class="text-xs font-semibold uppercase tracking-[0.4em]">
+      Zayd Abbas
+    </a>
+    <nav class="flex flex-wrap items-center gap-4">
+      {navItems.map((item) => {
+        const isActive =
+          item.href === '/'
+            ? normalizedPath === '/'
+            : normalizedPath.startsWith(item.href);
+        return (
+        <a
+          class="nav-link"
+          href={item.href}
+          aria-current={isActive ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+        );
+      })}
+    </nav>
+    <div class="flex items-center gap-3">
+      <Button href="/cv.pdf" variant="ghost" class="text-xs" hoverLine={true}>
+        Download CV
+      </Button>
+      <button
+        type="button"
+        class="btn btn-ghost text-xs"
+        data-theme-toggle
+        data-hover-line
+        aria-pressed="false"
+      >
+        <span data-theme-label>Theme</span>
+        <span class="u-line" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>

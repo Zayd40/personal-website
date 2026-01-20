@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Card from '../components/Card.astro';
+import { skills } from '../data/skills';
+---
+<BaseLayout title="Skills">
+  <section class="section pt-20">
+    <div class="site-container">
+      <SectionHeading
+        eyebrow="Skills"
+        title="No fluff. Just the tools that get work done."
+        subtitle="Grouped by focus so you can scan fast."
+      />
+      <div class="grid gap-6 md:grid-cols-3">
+        <Card hoverLine={false}>
+          <h3 class="text-lg font-semibold">Tech</h3>
+          <ul class="mt-4 space-y-2 text-sm text-muted">
+            {skills.tech.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </Card>
+        <Card hoverLine={false}>
+          <h3 class="text-lg font-semibold">Creative</h3>
+          <ul class="mt-4 space-y-2 text-sm text-muted">
+            {skills.creative.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </Card>
+        <Card hoverLine={false}>
+          <h3 class="text-lg font-semibold">Working style</h3>
+          <ul class="mt-4 space-y-2 text-sm text-muted">
+            {skills.working.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </Card>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

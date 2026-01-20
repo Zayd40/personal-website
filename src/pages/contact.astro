@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import { site } from '../data/site';
+---
+<BaseLayout title="Contact">
+  <section class="section pt-20">
+    <div class="site-container">
+      <SectionHeading
+        eyebrow="Contact"
+        title="Let us make the work feel calm and finished"
+        subtitle="Quick response, clear next steps."
+      />
+      <div class="grid gap-8 md:grid-cols-[1fr_1.2fr]">
+        <Card class="space-y-4" hoverLine={false}>
+          <h3 class="text-xl font-semibold">Reach out</h3>
+          <p class="text-sm text-muted">
+            Email is the fastest way to start. Socials are open for quick questions or
+            collaboration.
+          </p>
+          <div class="space-y-2 text-sm">
+            <a href={`mailto:${site.email}`} data-hover-line>
+              {site.email}
+              <span class="u-line" aria-hidden="true"></span>
+            </a>
+            <a href={site.socials.github} data-hover-line>
+              GitHub
+              <span class="u-line" aria-hidden="true"></span>
+            </a>
+            <a href={site.socials.linkedin} data-hover-line>
+              LinkedIn
+              <span class="u-line" aria-hidden="true"></span>
+            </a>
+            <a href={site.socials.instagram} data-hover-line>
+              Instagram
+              <span class="u-line" aria-hidden="true"></span>
+            </a>
+          </div>
+        </Card>
+        <Card hoverLine={false}>
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            class="space-y-4"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="hidden">
+              <label>
+                Don't fill this out if you're human: <input name="bot-field" />
+              </label>
+            </p>
+            <div class="space-y-2">
+              <label class="text-xs uppercase tracking-[0.3em] text-muted" for="name">
+                Name
+              </label>
+              <input class="input" type="text" id="name" name="name" required />
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs uppercase tracking-[0.3em] text-muted" for="email">
+                Email
+              </label>
+              <input class="input" type="email" id="email" name="email" required />
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs uppercase tracking-[0.3em] text-muted" for="message">
+                Message
+              </label>
+              <textarea class="input min-h-[140px]" id="message" name="message" required></textarea>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <Button type="submit" variant="primary">Send message</Button>
+              <Button href={`mailto:${site.email}`} variant="ghost">Email instead</Button>
+            </div>
+          </form>
+        </Card>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

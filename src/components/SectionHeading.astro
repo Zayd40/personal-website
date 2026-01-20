@@ -1,0 +1,8 @@
+---
+const { eyebrow, title, subtitle } = Astro.props;
+---
+<header class="section-heading" data-reveal>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <h2 class="text-3xl font-semibold md:text-4xl">{title}</h2>
+  {subtitle && <p class="max-w-2xl text-base text-muted">{subtitle}</p>}
+</header>

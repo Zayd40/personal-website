@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import Tag from '../components/Tag.astro';
+import { projects } from '../data/projects';
+import { skills } from '../data/skills';
+import { creative } from '../data/creative';
+
+const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
+const workedWith = ['Al Zahraa Centre', 'Longhill', 'Local clients'];
+const certifications = ['Bronze Arts Award'];
+---
+<BaseLayout title="Home">
+  <section class="section pt-20 md:pt-28" data-hero>
+    <div class="site-container relative grid gap-12 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+      <div class="space-y-6">
+        <p class="eyebrow" data-hero-item>Photographer + Tech</p>
+        <h1 class="text-4xl font-semibold md:text-6xl" data-hero-item>
+          Zayd Abbas
+        </h1>
+        <p class="max-w-xl text-xl text-muted md:text-2xl" data-hero-item>
+          I build systems and shoot visuals that
+          <span class="accent-underline-wrap">get used<span class="accent-underline" data-hero-underline></span></span>.
+        </p>
+        <p class="max-w-xl text-base text-muted" data-hero-item>
+          Photographer first, technologist second. I combine clean visuals with reliable
+          infrastructure so the work feels calm, fast, and finished.
+        </p>
+        <ul class="space-y-2 text-sm text-muted" data-hero-item>
+          <li>Photographer & creator</li>
+          <li>Tech + automation builder</li>
+          <li>Community projects & media systems</li>
+        </ul>
+        <div class="flex flex-wrap gap-3" data-hero-item>
+          <Button href="/projects" variant="primary">View projects</Button>
+          <Button href="/contact" variant="ghost">Contact</Button>
+        </div>
+      </div>
+      <div class="relative" data-hero-item>
+        <div class="hero-orb" data-hero-orb></div>
+        <Card class="space-y-6" hoverLine={false} reveal={false}>
+          <p class="eyebrow">Current focus</p>
+          <h3 class="text-2xl font-semibold">Building tidy systems for media teams.</h3>
+          <ul class="space-y-3 text-sm text-muted">
+            <li>Reliable capture-to-delivery pipelines</li>
+            <li>Clean hosting and automation for community orgs</li>
+            <li>Editorial visuals with a sharp, premium finish</li>
+          </ul>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-container">
+      <SectionHeading
+        eyebrow="Featured"
+        title="Projects with real outcomes"
+        subtitle="A focused mix of community, media, and infrastructure work."
+      />
+      <div class="grid gap-6 md:grid-cols-3">
+        {featuredProjects.map((project) => (
+          <Card class="space-y-4">
+            <div class="space-y-2">
+              <p class="eyebrow">{project.tags[0]}</p>
+              <h3 class="text-xl font-semibold">{project.title}</h3>
+              <p class="text-sm text-muted">{project.outcome}</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              {project.stack.slice(0, 3).map((item) => (
+                <Tag>{item}</Tag>
+              ))}
+            </div>
+            <a
+              class="text-sm font-medium"
+              href={project.links.caseStudy !== '#' ? project.links.caseStudy : '/projects'}
+              data-hover-line
+            >
+              View case study
+              <span class="u-line" aria-hidden="true"></span>
+            </a>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-container">
+      <SectionHeading
+        eyebrow="Creative"
+        title="Selected visual work"
+        subtitle="Photography and design work with clean, editorial framing."
+      />
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="space-y-4">
+          <p class="text-sm uppercase tracking-[0.3em] text-muted">Photography</p>
+          <div class="grid gap-4 md:grid-cols-2">
+            {creative.photography.map((item) => (
+              <figure class="grid-placeholder" data-reveal>
+                <figcaption>{item.title}</figcaption>
+                <span class="text-xs text-muted">{item.caption}</span>
+              </figure>
+            ))}
+          </div>
+        </div>
+        <div class="space-y-4">
+          <p class="text-sm uppercase tracking-[0.3em] text-muted">Design</p>
+          <div class="grid gap-4 md:grid-cols-2">
+            {creative.design.map((item) => (
+              <figure class="grid-placeholder" data-reveal>
+                <figcaption>{item.title}</figcaption>
+                <span class="text-xs text-muted">{item.caption}</span>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-sm text-muted" data-reveal>
+        Selected work - ask for full portfolio.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-container">
+      <SectionHeading
+        eyebrow="Skills"
+        title="A balanced toolkit"
+        subtitle="Tech, creative, and the working style to deliver fast with polish."
+      />
+      <div class="grid gap-6 md:grid-cols-3">
+        <Card hoverLine={false}>
+          <h3 class="text-lg font-semibold">Tech</h3>
+          <ul class="mt-4 space-y-2 text-sm text-muted">
+            {skills.tech.slice(0, 5).map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </Card>
+        <Card hoverLine={false}>
+          <h3 class="text-lg font-semibold">Creative</h3>
+          <ul class="mt-4 space-y-2 text-sm text-muted">
+            {skills.creative.slice(0, 5).map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </Card>
+        <Card hoverLine={false}>
+          <h3 class="text-lg font-semibold">Working style</h3>
+          <ul class="mt-4 space-y-2 text-sm text-muted">
+            {skills.working.slice(0, 4).map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-container">
+      <SectionHeading
+        eyebrow="Credibility"
+        title="Trusted by local teams"
+        subtitle="Simple proof points that show consistency and follow-through."
+      />
+      <div class="grid gap-4 md:grid-cols-3">
+        {workedWith.map((client) => (
+          <div class="grid-placeholder" data-reveal>
+            <span>{client}</span>
+          </div>
+        ))}
+      </div>
+      <div class="mt-10 flex flex-wrap items-center gap-3" data-reveal>
+        <p class="text-sm uppercase tracking-[0.3em] text-muted">Certifications</p>
+        {certifications.map((cert) => (
+          <Tag>{cert}</Tag>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-container">
+      <Card class="flex flex-col items-start justify-between gap-6 md:flex-row" hoverLine={false}>
+        <div class="space-y-3">
+          <p class="eyebrow">Ready to work</p>
+          <h3 class="text-2xl font-semibold">Let us build something clear and useful.</h3>
+          <p class="text-sm text-muted">
+            Available for photography, media systems, and lightweight web + automation builds.
+          </p>
+        </div>
+        <Button href="/contact" variant="primary">Start a project</Button>
+      </Card>
+    </div>
+  </section>
+</BaseLayout>

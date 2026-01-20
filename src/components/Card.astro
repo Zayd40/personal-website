@@ -1,0 +1,26 @@
+---
+const {
+  href,
+  class: className = '',
+  reveal = true,
+  hoverLine = true,
+  ...rest
+} = Astro.props;
+
+const Tag = href ? 'a' : 'article';
+const attributes = href ? { href } : {};
+---
+<Tag
+  class={`card ${className}`}
+  data-reveal={reveal ? '' : undefined}
+  data-hover-line={hoverLine ? '' : undefined}
+  {...attributes}
+  {...rest}
+>
+  <slot />
+  {hoverLine && (
+    <div class="underline-wrap" aria-hidden="true">
+      <span class="u-line"></span>
+    </div>
+  )}
+</Tag>

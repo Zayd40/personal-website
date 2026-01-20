@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Tag from '../../components/Tag.astro';
+import Button from '../../components/Button.astro';
+
+const stack = ['Astro', 'Netlify', 'Cloudflare', 'Docker', 'Automation'];
+---
+<BaseLayout title="AZC Website & Infrastructure">
+  <section class="section pt-20">
+    <div class="site-container space-y-10">
+      <SectionHeading
+        eyebrow="Case Study"
+        title="AZC Website & Infrastructure"
+        subtitle="A rebuild focused on clarity, reliability, and calm content delivery."
+      />
+      <div class="flex flex-wrap gap-2" data-reveal>
+        {stack.map((item) => (
+          <Tag>{item}</Tag>
+        ))}
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="space-y-4" data-reveal>
+          <h3 class="text-xl font-semibold">Problem</h3>
+          <p class="text-sm text-muted">
+            The previous site was outdated and difficult to update. Event pages and donation
+            information were inconsistent, and the deployment flow lacked reliability.
+          </p>
+        </div>
+        <div class="space-y-4" data-reveal>
+          <h3 class="text-xl font-semibold">Approach</h3>
+          <p class="text-sm text-muted">
+            I rebuilt the site in Astro with a clean content structure, added automation for
+            deployment, and introduced a simpler editing flow for non-technical contributors.
+          </p>
+        </div>
+        <div class="space-y-4" data-reveal>
+          <h3 class="text-xl font-semibold">Outcome</h3>
+          <p class="text-sm text-muted">
+            Updates now ship faster, donation info is clear, and the site feels calmer and more
+            trustworthy for visitors.
+          </p>
+        </div>
+        <div class="space-y-4" data-reveal>
+          <h3 class="text-xl font-semibold">Stack</h3>
+          <p class="text-sm text-muted">
+            Astro for static output, Netlify for hosting, Cloudflare for routing and security, and
+            lightweight Docker tooling for predictable deployments.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-3" data-reveal>
+        <Button href="/projects" variant="ghost">Back to projects</Button>
+        <Button href="/contact" variant="primary">Start a project</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

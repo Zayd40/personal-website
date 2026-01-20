@@ -1,0 +1,27 @@
+---
+const {
+  href,
+  variant = 'primary',
+  class: className = '',
+  target,
+  rel,
+  download,
+  type = 'button',
+  hoverLine = true
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const classes = `btn ${variant === 'primary' ? 'btn-primary' : 'btn-ghost'} ${className}`;
+const attributes = href
+  ? {
+      href,
+      target,
+      rel: rel || (target === '_blank' ? 'noreferrer' : undefined),
+      download
+    }
+  : { type };
+---
+<Tag class={classes} data-hover-line={hoverLine ? '' : undefined} {...attributes}>
+  <span><slot /></span>
+  {hoverLine && <span class="u-line" aria-hidden="true"></span>}
+</Tag>

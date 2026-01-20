@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+const {
+  title = site.title,
+  description = site.description,
+  canonical
+} = Astro.props;
+
+const pageTitle = title === site.title ? title : `${title} - ${site.title}`;
+const canonicalUrl =
+  canonical || new URL(Astro.url.pathname, site.url).toString();
+const ogImage = `${site.url}/og-image.svg`;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.title,
+  description: site.description,
+  url: site.url,
+  jobTitle: 'Photographer + Systems Builder',
+  image: ogImage,
+  sameAs: Object.values(site.socials)
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#6b7a3b" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      const storedTheme = localStorage.getItem('theme-preference');
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+      const theme = storedTheme || systemTheme;
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    </script>
+    <script type="application/ld+json">
+      {JSON.stringify(structuredData)}
+    </script>
+    <title>{pageTitle}</title>
+  </head>
+  <body class="min-h-screen">
+    <Nav currentPath={Astro.url.pathname} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script type="module">
+      import { initAnimations } from '../scripts/animations.js';
+      import { initThemeToggle } from '../scripts/theme.js';
+      import { initProjectFilters } from '../scripts/filters.js';
+
+      initThemeToggle();
+      initAnimations();
+      initProjectFilters();
+    </script>
+  </body>
+</html>

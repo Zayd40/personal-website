@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { creative } from '../data/creative';
+---
+<BaseLayout title="Creative">
+  <section class="section pt-20">
+    <div class="site-container space-y-12">
+      <SectionHeading
+        eyebrow="Creative"
+        title="Photography + Design"
+        subtitle="Clean compositions, strong contrast, and a premium finish."
+      />
+      <div class="space-y-8">
+        <div class="space-y-4">
+          <p class="text-sm uppercase tracking-[0.3em] text-muted">Photography</p>
+          <div class="grid gap-4 md:grid-cols-3">
+            {creative.photography.map((item) => (
+              <figure class="grid-placeholder" data-reveal>
+                <figcaption>{item.title}</figcaption>
+                <span class="text-xs text-muted">{item.caption}</span>
+              </figure>
+            ))}
+          </div>
+        </div>
+        <div class="space-y-4">
+          <p class="text-sm uppercase tracking-[0.3em] text-muted">Design</p>
+          <div class="grid gap-4 md:grid-cols-3">
+            {creative.design.map((item) => (
+              <figure class="grid-placeholder" data-reveal>
+                <figcaption>{item.title}</figcaption>
+                <span class="text-xs text-muted">{item.caption}</span>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+      <p class="text-sm text-muted" data-reveal>
+        Selected work - ask for the full portfolio.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

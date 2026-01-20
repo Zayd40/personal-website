@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Card from '../../components/Card.astro';
+import Tag from '../../components/Tag.astro';
+import { projects, projectTags } from '../../data/projects';
+
+const renderLink = (label, href) => {
+  const disabled = href === '#';
+  return {
+    label,
+    href: disabled ? '#' : href,
+    disabled
+  };
+};
+---
+<BaseLayout title="Projects">
+  <section class="section pt-20">
+    <div class="site-container">
+      <SectionHeading
+        eyebrow="Projects"
+        title="Systems and visuals with practical outcomes"
+        subtitle="Filter by discipline to see how each project fits the mix of media and tech."
+      />
+      <div class="mb-10 flex flex-wrap gap-3" data-filter-group>
+        {projectTags.map((tag) => (
+          <button
+            type="button"
+            class="btn btn-ghost text-xs text-muted"
+            data-filter={tag}
+            aria-pressed="false"
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        {projects.map((project) => (
+          <Card
+            class="space-y-4"
+            data-project-card
+            data-tags={project.tags.join(', ')}
+          >
+            <div class="space-y-2">
+              <p class="eyebrow">{project.tags.join(' / ')}</p>
+              <h3 class="text-xl font-semibold">{project.title}</h3>
+              <p class="text-sm text-muted">{project.outcome}</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              {project.stack.map((item) => (
+                <Tag>{item}</Tag>
+              ))}
+            </div>
+            <div class="flex flex-wrap gap-4 text-xs uppercase tracking-[0.2em]">
+              {[
+                renderLink('Live', project.links.live),
+                renderLink('GitHub', project.links.github),
+                renderLink('Case study', project.links.caseStudy)
+              ].map((link) => (
+                <a
+                  href={link.href}
+                  class={link.disabled ? 'text-muted pointer-events-none' : ''}
+                  aria-disabled={link.disabled ? 'true' : undefined}
+                  tabindex={link.disabled ? -1 : undefined}
+                  data-hover-line={link.disabled ? undefined : ''}
+                >
+                  {link.label}
+                  {!link.disabled && <span class="u-line" aria-hidden="true"></span>}
+                </a>
+              ))}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

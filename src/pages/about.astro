@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Card from '../components/Card.astro';
+
+const highlights = [
+  {
+    year: '2024',
+    title: 'Event streaming system',
+    detail: 'Designed a reliable live workflow for community events and media capture.'
+  },
+  {
+    year: '2023',
+    title: 'AZC website rebuild',
+    detail: 'Delivered a clean new site with better content flow and hosting.'
+  },
+  {
+    year: '2022',
+    title: 'Longhill promo video',
+    detail: 'Shot and edited a short promo with consistent editorial framing.'
+  },
+  {
+    year: '2021',
+    title: 'Bronze Arts Award',
+    detail: 'Completed a creative portfolio with documented process.'
+  }
+];
+---
+<BaseLayout title="About">
+  <section class="section pt-20">
+    <div class="site-container space-y-10">
+      <SectionHeading
+        eyebrow="About"
+        title="Photographer first, systems builder second"
+        subtitle="I focus on visuals that feel confident and infrastructure that keeps things running."
+      />
+      <Card class="space-y-4" hoverLine={false}>
+        <p class="text-base text-muted">
+          I work across photography, media production, and lightweight engineering. That mix lets
+          me deliver clean visuals and the systems behind them, from websites to live streams.
+        </p>
+        <p class="text-base text-muted">
+          I keep communication clear, set expectations early, and ship work that is practical and
+          reliable. No fluff, just strong output.
+        </p>
+      </Card>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-container grid gap-6 md:grid-cols-2">
+      <Card class="space-y-4" hoverLine={false}>
+        <p class="eyebrow">Now</p>
+        <h3 class="text-2xl font-semibold">Focused on calm delivery and consistent output.</h3>
+        <ul class="space-y-2 text-sm text-muted">
+          <li>Building web + automation systems for community organizations.</li>
+          <li>Developing a tighter property photography workflow.</li>
+          <li>Creating simple toolkits for media teams and volunteers.</li>
+        </ul>
+      </Card>
+      <Card class="space-y-4" hoverLine={false}>
+        <p class="eyebrow">Values</p>
+        <ul class="space-y-2 text-sm text-muted">
+          <li>Reliability over noise.</li>
+          <li>Documentation that makes handovers easy.</li>
+          <li>Respect for the story in front of the lens.</li>
+          <li>Keep systems simple and maintainable.</li>
+        </ul>
+      </Card>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-container">
+      <SectionHeading
+        eyebrow="Highlights"
+        title="Timeline"
+        subtitle="Concise milestones that show growth across creative and technical work."
+      />
+      <div class="space-y-6">
+        {highlights.map((item) => (
+          <div class="grid gap-4 border-l border-border pl-6" data-reveal>
+            <p class="text-xs uppercase tracking-[0.3em] text-muted">{item.year}</p>
+            <h3 class="text-lg font-semibold">{item.title}</h3>
+            <p class="text-sm text-muted">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
