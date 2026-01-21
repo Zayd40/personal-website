@@ -31,6 +31,19 @@ const structuredData = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('reduced-motion');
+      }
+      const storedTheme = localStorage.getItem('theme-preference');
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+      const theme = storedTheme || systemTheme;
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    </script>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:title" content={pageTitle} />
@@ -41,16 +54,6 @@ const structuredData = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#6b7a3b" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script is:inline>
-      document.documentElement.classList.add('js');
-      const storedTheme = localStorage.getItem('theme-preference');
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-      const theme = storedTheme || systemTheme;
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-    </script>
     <script type="application/ld+json">
       {JSON.stringify(structuredData)}
     </script>
@@ -62,13 +65,12 @@ const structuredData = {
       <slot />
     </main>
     <Footer />
+    <script type="module" src="/scripts/motion.js"></script>
     <script type="module">
-      import { initAnimations } from '../scripts/animations.js';
       import { initThemeToggle } from '../scripts/theme.js';
       import { initProjectFilters } from '../scripts/filters.js';
 
       initThemeToggle();
-      initAnimations();
       initProjectFilters();
     </script>
   </body>
